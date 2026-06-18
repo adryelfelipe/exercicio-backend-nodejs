@@ -6,4 +6,4 @@ class LoginRequest {
   }
 }
  
-export default LoginDTO;
+export default LoginRequest;
