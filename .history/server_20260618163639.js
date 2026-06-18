@@ -6,8 +6,6 @@ const app = express();
 app.use(express.json())
 
 app.use("/auth",router)
-app.use("/addresses", addressRouter);
-app.use("/shared", sharedRouter);
 
 app.listen(3000, () => {
     console.log("Servidor rodando")

@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json())
 
 app.use("/auth",router)
+
 app.use("/addresses", addressRouter);
 app.use("/shared", sharedRouter);
 
