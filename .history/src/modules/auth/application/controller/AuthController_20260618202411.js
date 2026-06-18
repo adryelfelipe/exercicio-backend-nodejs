@@ -23,7 +23,7 @@ class AuthController {
  
         const user = authService.register(registerRequest)
  
-        res.status(200)
+        res.status(200).json(user)
     }
 }
  

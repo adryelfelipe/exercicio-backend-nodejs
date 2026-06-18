@@ -7,6 +7,8 @@ class AuthService {
     // falta repositório: validar se já existe usuário com esse email
     // falta: gerar hash da senha (bcrypt) antes de salvar
     // falta repositório: salvar o usuário no banco
+ 
+    return user;
   }
  
   login(loginRequest) {
