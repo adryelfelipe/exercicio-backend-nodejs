@@ -46,11 +46,20 @@ class AddressController {
   }
 
   async delete(req, res) {
-    await addressService.delete(req.params.id, req.userId);
+    try {
+      await addressService.delete(req.params.id, req.userId);
+ 
+      res.status(204).send();
+    } catch (error) {
+      if (error.name === "AddressNotFoundException") {
+        res.status(404).json({ message: error.message });
+      } 
 
-    res.status(200).json({ message: "Address deleted" });
+      console.log(error.message)
+      res.status(500).json({ message: "Internal server error" });
+    }
+    
   }
-
   async share(req, res) {
     const sharedUrl = await addressService.share(req.params.id, req.userId, req.body.expiresIn);
 

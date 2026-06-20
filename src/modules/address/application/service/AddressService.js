@@ -1,5 +1,6 @@
 import addressMapper from '../mapper/AddressMapper.js';
 import prismaAddressRepository from "../../infrastructure/repository/PrismaAddressRepository.js"
+import AddressNotFoundException from "../exceptions/AddressNotFoundException.js"
 
  
 class AddressService {
@@ -29,19 +30,25 @@ class AddressService {
     return addressMapper.toResponse(address);
   }
  
-  delete(id, userId) {
-    // falta repositório: buscar endereço por id e validar se pertence ao userId
-    // falta repositório: remover endereço do banco
+ async delete(id, userId) {
+    const address = await prismaAddressRepository.findById(Number(id));
+ 
+    if (!address || address.user_id !== userId) {
+      throw new AddressNotFoundException();
+    }
+ 
+    await prismaAddressRepository.delete(Number(id));
+ 
     // falta: registrar log da exclusão (dados removidos + id do usuário)
   }
  
-  share(id, userId, expiresIn) {
+  async share(id, userId, expiresIn) {
     // falta repositório: buscar endereço e validar se pertence ao userId
     // falta: gerar token JWT com o id do endereço e validade (expiresIn)
     // falta: montar e retornar a URL com o token gerado
   }
  
-  getShared(token) {
+  async getShared(token) {
     // falta: validar/decodificar o token JWT (jwt.verify)
     // falta: se expirado ou inválido, lançar erro
     // falta repositório: buscar endereço pelo id contido no token
