@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import authMapper from '../mapper/AuthMapper.js';
 import UserRepository from '../../../user/domain/repository/UserRepository.js';
-import prismaUserRepository from '../../../user/infrastructure/repository/UserRepository.js'
+import prismaUserRepository from '../../../user/infrastructure/repository/PrismaUserRepository.js'
 import EmailAlreadyUsedException from '../exceptions/EmailAlreadyUsedException.js';
 import InvalidCredentialsException from '../exceptions/InvalidCredentialsException.js';
 

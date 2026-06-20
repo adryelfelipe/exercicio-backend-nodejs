@@ -3,8 +3,7 @@ import addressMapper from '../mapper/AddressMapper.js';
 class AddressService {
   create(createAddressRequest, userId) {
     const address = addressMapper.toAddress(createAddressRequest, userId);
- 
-    // falta repositório: salvar o endereço no banco
+
  
     return addressMapper.toResponse(address);
   }
