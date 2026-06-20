@@ -3,7 +3,7 @@ import prismaAddressRepository from "../../infrastructure/repository/PrismaAddre
 
  
 class AddressService {
-  create(createAddressRequest, userId) {
+  async create(createAddressRequest, userId) {
     const address = addressMapper.toAddress(createAddressRequest, userId);
 
     const id = prismaAddressRepository.create(address)
@@ -11,8 +11,10 @@ class AddressService {
     return id;
   }
  
-  findAll(userId, keyword) {
-    // falta repositório: buscar endereços do usuário (com filtro por keyword)
+  async findAll(userId, keyword) {
+    const addresses = await prismaAddressRepository.findAllByUserId(userId, keyword);
+ 
+    return addressMapper.toResponseList(addresses);
   }
  
   update(id, updateAddressRequest, userId) {

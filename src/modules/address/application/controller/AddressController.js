@@ -24,9 +24,9 @@ class AddressController {
   }
 
   async findAll(req, res) {
-    const addresses = await addressService.findAll(req.userId, req.query.keyword);
-
-    res.status(200).json(addresses);
+      const addresses = await addressService.findAll(req.userId, req.query.keyword);
+      res.status(200).json(addresses);
+   
   }
 
   async update(req, res) {
