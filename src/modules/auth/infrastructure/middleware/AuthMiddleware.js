@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import UnauthorizedException from '../exceptions/UnauthorizedException.js';
+import UnauthorizedException from '../../application/exceptions/UnauthorizedException.js';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
