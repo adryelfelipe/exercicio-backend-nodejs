@@ -24,7 +24,7 @@ class AddressMapper {
       neighborhood: address.neighborhood,
       city: address.city,
       state: address.state,
-      zipCode: address.zipCode,
+      zipCode: address.zip_code,
     });
   }
  

@@ -18,16 +18,20 @@ class AddressService {
     return addressMapper.toResponseList(addresses);
   }
  
-  update(id, updateAddressRequest, userId) {
-    // falta repositório: buscar endereço por id e validar se pertence ao userId
+  async update(id, updateAddressRequest, userId) {
+    const existingAddress = await prismaAddressRepository.findById(Number(id));
+ 
+    if (!existingAddress || existingAddress.user_id !== userId) {
+      throw new AddressNotFoundException();
+    }
  
     const address = addressMapper.toAddress(updateAddressRequest, userId);
-    address.id = id;
  
-    // falta repositório: salvar as alterações no banco
+    const updated = await prismaAddressRepository.update(Number(id), address);
+ 
     // falta: registrar log da alteração (dados modificados + id do usuário)
  
-    return addressMapper.toResponse(address);
+    return addressMapper.toResponse(updated);
   }
  
  async delete(id, userId) {
