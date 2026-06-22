@@ -11,6 +11,10 @@ class GlobalExceptionHandler {
       return this.handleInvalidJson(req, res);
     }
 
+    if (error.name === "UnauthorizedException") {
+      return this.handleUnauthorized(error, req, res);
+    }
+
     if (error.name === "AddressNotFoundException") {
       return this.handleNotFound(error, req, res);
     }
@@ -56,6 +60,18 @@ class GlobalExceptionHandler {
     );
 
     return res.status(400).json(problem);
+  }
+
+  handleUnauthorized(error, req, res) {
+    const problem = new ProblemDetails(
+      "https://api.example.com/errors/unauthorized",
+      "Unauthorized",
+      401,
+      error.message,
+      req.path
+    );
+
+    return res.status(401).json(problem);
   }
 
   handleNotFound(error, req, res) {

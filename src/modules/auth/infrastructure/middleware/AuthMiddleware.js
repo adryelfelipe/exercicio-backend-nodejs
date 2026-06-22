@@ -24,11 +24,7 @@ class AuthMiddleware {
 
       next();
     } catch (error) {
-      if (error instanceof UnauthorizedException) {
-        return res.status(error.statusCode).json({ message: error.message });
-      }
-
-      return res.status(401).json({ message: 'Invalid or expired token' });
+      next(error);
     }
   }
 }
