@@ -24,6 +24,14 @@ class AuthMiddleware {
 
       next();
     } catch (error) {
+      if (error.name === 'TokenExpiredError') {
+        return next(new UnauthorizedException('Token expired'));
+      }
+
+      if (error.name === 'JsonWebTokenError') {
+        return next(new UnauthorizedException('Invalid token'));
+      }
+
       next(error);
     }
   }
