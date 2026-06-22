@@ -164,8 +164,8 @@ O domínio (models e contratos de repositório) não depende de Express ou do Pr
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/adryelfelipe/exercicio-backend-nodejs.git
-cd exercicio-backend-nodejs
+git clone https://github.com/adryelfelipe/Address-Manager-API.git
+cd Address-Manager-API
 ```
 
 ### 2. Instalar as dependências
