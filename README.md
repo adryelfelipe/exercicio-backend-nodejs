@@ -36,6 +36,7 @@ A construção priorizou **separação de responsabilidades** e **previsibilidad
 ### 🔐 Autenticação e Segurança
 
 - Autenticação via **JWT**, com middleware dedicado protegendo as rotas sensíveis
+- Validação do tipo de token (`access` e `share`) para impedir o uso indevido de tokens de compartilhamento como autenticação
 - Senhas armazenadas com hash via **bcrypt**, nunca em texto plano
 - Isolamento de dados por usuário: cada endereço só pode ser lido, editado ou removido pelo seu próprio dono
 
