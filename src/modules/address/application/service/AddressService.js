@@ -5,6 +5,7 @@ import AddressNotFoundException from '../exceptions/AddressNotFoundException.js'
 import Log from '../../../../shared/infrastructure/log/Log.js';
 import LogRepository from '../../../../shared/infrastructure/log/LogRepository.js';
 import PrismaLogRepository from '../../../../shared/infrastructure/log/PrismaLogRepository.js';
+import UnauthorizedException from '../../../auth/application/exceptions/UnauthorizedException.js';
 
 /** @type {LogRepository} */
 const logRepository = new PrismaLogRepository();
@@ -80,7 +81,7 @@ async delete(id, userId) {
     }
 
     const token = jwt.sign(
-      { addressId: address.id },
+      { addressId: address.id, type:'share' },
       process.env.JWT_SECRET,
       { expiresIn: expiresIn || '1h' }
     );
@@ -92,6 +93,11 @@ async delete(id, userId) {
 
   async getShared(token) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (decoded.type !== 'share') {
+      throw new UnauthorizedException('Invalid token type');
+    }
+
 
     const address = await prismaAddressRepository.findById(decoded.addressId);
 

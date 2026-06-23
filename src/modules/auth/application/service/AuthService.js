@@ -43,7 +43,7 @@ class AuthService {
       throw new InvalidCredentialsException();
     }
 
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    const token = jwt.sign({ userId: user.id, type:'access'}, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 
     return token;
   }

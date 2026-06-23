@@ -20,6 +20,10 @@ class AuthMiddleware {
 
       const decoded = jwt.verify(token, JWT_SECRET);
 
+      if (decoded.type !== 'access' || !decoded.userId) {
+        throw new UnauthorizedException('Invalid token type');
+      }
+
       req.userId = decoded.userId;
 
       next();
