@@ -20,18 +20,19 @@ class PrismaAddressRepository extends AddressRepository {
   }
 
   async findAllByUserId(userId, keyword) {
-    const found = await prismaClient.addresses.findMany({
-      where: {
-        user_id: userId,
-        ...(keyword && {
-          OR: [
-            { street: { contains: keyword, mode: 'insensitive' } },
-            { city: { contains: keyword, mode: 'insensitive' } },
-            { neighborhood: { contains: keyword, mode: 'insensitive' } },
-          ],
-        }),
-      },
-    });
+    const where = {
+      user_id: userId
+    }
+
+    if (keyword) {
+      where.OR = [
+        { street: { contains: keyword, mode: 'insensitive' } },
+        { city: { contains: keyword, mode: 'insensitive' } },
+        { neighborhood: { contains: keyword, mode: 'insensitive' } },
+      ];
+    }
+
+    const found = await prismaClient.addresses.findMany({where: where})
 
     return found;
   }
